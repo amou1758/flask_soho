@@ -691,7 +691,7 @@ if __name__ == "__main__":
 
 
 
-### 第十四章: WTF简介 —> [传送门](https://www.bilibili.com/video/av19817183/?p=15)
+### 第十五章: WTF简介 —> [传送门](https://www.bilibili.com/video/av19817183/?p=15)
 
 
 
@@ -717,5 +717,108 @@ if __name__ == "__main__":
 | FormField           | 把表单作为字段嵌入另一个表单          |
 | FieldList           | 一组指定类型的字段                    |
 
+#### 第十六章: 使用 Flask_WTF 实现表单 —> [传送门](https://www.bilibili.com/video/av19817183/?p=16)
 
+**首先:  在虚拟环境中安装Flask-WTF**
+
+**模版页面**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post">
+    <label>用户名:</label><input type="text" name="username"><br>
+    <label>密码:</label><input type="password" name="password"><br>
+    <label>确认密码:</label><input type="password" name="password2"><br>
+    <input type="submit" value="提交"><br>
+    {# get_flashed_messages()函数用于获取 flash 提供的消息 #}
+    {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}
+</form>
+<hr>
+<form action="">
+    {{ form.username.label }}{{form.username}}<br>
+    {{ form.password.label }}{{form.password}}<br>
+    {{ form.password2.label }}{{form.password2}}<br>
+    {{form.submit}}
+
+</form>
+</body>
+</html>
+```
+
+**视图函数**
+
+```python
+from flask import Flask, render_template, request, flash
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+
+app = Flask(__name__)
+
+
+app.secret_key = 'amou1758'
+
+'''
+目的: 实现一个简单的登陆逻辑处理
+1. 路由需要有get和post两种请求方式 ---> 需要判断请求方式
+2. 获取请求的参数
+3. 判断参数是否填写 & 密码是否相同
+4. 如果判断都没有问题, 就返回一个success
+'''
+
+'''
+给模版传递消息
+flash  ---> 需要对内容加密, 因此需要设置 secret_key, 做加密消息的混淆
+模版中需要遍历消息
+'''
+
+'''
+使用WTF实现表单
+自定义表单类
+'''
+
+class LoginForm(FlaskForm):
+    username = StringField('用户名:')
+    password = PasswordField('密码:')
+    password2 = PasswordField('确认密码:')
+    submit = SubmitField('提交')
+
+
+@app.route('/form', methods=['GET', 'POST'])
+def login():
+    login_form = LoginForm()
+    return render_template('index.html', form=login_form)
+
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    # request: 请求对象 --> 获取请求方式, 数据
+    # 1. 判断请求方式
+    if request.method == 'POST':
+        # 2. 获取请求参数
+        username = request.form.get('username')
+        password = request.form.get('password')
+        password2 = request.form.get('password2')
+        # 3. 判断参数是否填写 & 密码是否相同
+        if not all([username, password, password2]):
+            flash("参数不完整")
+        elif password != password2:
+            flash("密码不一致")
+        else:
+            return 'success'
+    return render_template('index.html')
+
+
+if __name__ == "__main__":
+	app.run(debug=True)
+```
 

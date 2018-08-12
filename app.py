@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, flash
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
 
 app = Flask(__name__)
 
@@ -18,6 +20,25 @@ app.secret_key = 'amou1758'
 flash  ---> 需要对内容加密, 因此需要设置 secret_key, 做加密消息的混淆
 模版中需要遍历消息
 '''
+
+'''
+使用WTF实现表单
+自定义表单类
+'''
+
+class LoginForm(FlaskForm):
+    username = StringField('用户名:')
+    password = PasswordField('密码:')
+    password2 = PasswordField('确认密码:')
+    submit = SubmitField('提交')
+
+
+@app.route('/form', methods=['GET', 'POST'])
+def login():
+    login_form = LoginForm()
+    return render_template('index.html', form=login_form)
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
