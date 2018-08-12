@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6a17b1ff-2970-41f9-9682-55864bf81210" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +26,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="304">
-                <caret line="715" lean-forward="true" selection-start-line="715" selection-end-line="715" />
+              <first_editor relative-caret-position="499">
+                <caret line="719" lean-forward="true" selection-start-line="719" selection-end-line="719" />
               </first_editor>
               <second_editor />
             </state>
@@ -283,8 +281,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="304">
-            <caret line="715" lean-forward="true" selection-start-line="715" selection-end-line="715" />
+          <first_editor relative-caret-position="499">
+            <caret line="719" lean-forward="true" selection-start-line="719" selection-end-line="719" />
           </first_editor>
           <second_editor />
         </state>
