@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, EqualTo
 
 app = Flask(__name__)
 
@@ -27,15 +28,29 @@ flash  ---> 需要对内容加密, 因此需要设置 secret_key, 做加密消�
 '''
 
 class LoginForm(FlaskForm):
-    username = StringField('用户名:')
-    password = PasswordField('密码:')
-    password2 = PasswordField('确认密码:')
+    username = StringField('用户名:', validators=[DataRequired()])
+    password = PasswordField('密码:', validators=[DataRequired()])
+    password2 = PasswordField('确认密码:', validators=[DataRequired(), EqualTo('password', '密码不一致')])
     submit = SubmitField('提交')
 
 
 @app.route('/form', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
+    # 1. 判断请求方式
+    if request.method == 'POST':
+        # 2. 获取请求参数
+        username = request.form.get('username')
+        password = request.form.get('password')
+        password2 = request.form.get('password2')
+        # 3. 验证参数, WTF可以一句话实现所有的校验
+        # CSRF_token
+        if login_form.validate_on_submit():
+            print(username, password, password2)
+            return "success"
+        else:
+            flash('参数有误')
+
     return render_template('index.html', form=login_form)
 
 
