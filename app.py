@@ -7,7 +7,14 @@ app = Flask(__name__)
 def index():
     # 假设需要传入一个网址
     url_str = 'www.itheima.com'
-    return render_template('index.html', url_str=url_str)
+
+    my_list = [1, 3, 5, 7, 9]
+    my_dict = {
+        'name': "我是代码搬运工!!!",
+        'url': "www.cnblog.com/username"
+    }
+    # 通常, 模版中使用的变量名和要床底的数据的变量名要保持一致
+    return render_template('index.html', url_str=url_str, my_list=my_list, my_dict=my_dict)
 
 
 # 使用同一个视图函数, 来显示不同用户的订单信息
