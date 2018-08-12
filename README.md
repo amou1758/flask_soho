@@ -280,8 +280,258 @@ if __name__ == "__main__":
     {% endif %}
 {% endfor %}
 
-
 ```
 
 
 
+### 第十二章: 过滤器 —> [传送门](https://www.bilibili.com/video/av19817183/?p=12)
+
+#### 过滤器
+
+过滤器的本质就是函数. 有时候我们不仅仅只是需要输出变量的值, 我们还需要修改变量的显示, 是指格式化, 运算等等, 而在模版中是不能直接调用 Python 中的某些方法, 那么这就用到了过滤器
+
+**使用方法: **
+
+- 过滤器的使用方式为:  **变量名 | 过滤器**
+
+```html
+{{variable | filter_name(*args)}}
+```
+
+- 如果没有任何参数传给过滤器, 则可以把括号省略掉, 如下:
+
+```html
+{{variable | filter_name}}
+```
+
+- 如:  **“,**  这个过滤器的作用: 把变量 variable 的值的首字母转化为大写, 其他字幕转换为小写
+
+
+
+#### 过滤器链式调用
+
+**作用: ** 多个过滤器组合使用
+
+```html
+{{ variable | 过滤器1 | 过滤器2 | 过滤器3 | 过滤器n}}
+```
+
+
+
+### Flask 中常见的过滤器
+
+#### 字符串操作:
+
+```html
+{# 当变量未定义时，显示默认字符串，可以缩写为d #}
+
+<p>{{ name | default('No name', true) }}</p>
+
+ 
+
+{# 单词首字母大写 #}
+
+<p>{{ 'hello' | capitalize }}</p>
+
+ 
+
+{# 单词全小写 #}
+
+<p>{{ 'XML' | lower }}</p>
+
+ 
+
+{# 去除字符串前后的空白字符 #}
+
+<p>{{ '  hello  ' | trim }}</p>
+
+ 
+
+{# 字符串反转，返回"olleh" #}
+
+<p>{{ 'hello' | reverse }}</p>
+
+ 
+
+{# 格式化输出，返回"Number is 2" #}
+
+<p>{{ '%s is %d' | format("Number", 2) }}</p>
+
+ 
+
+{# 关闭HTML自动转义 #}
+
+<p>{{ '<em>name</em>' | safe }}</p>
+
+ 
+
+{% autoescape false %}
+
+{# HTML转义，即使autoescape关了也转义，可以缩写为e #}
+
+<p>{{ '<em>name</em>' | escape }}</p>
+
+{% endautoescape %}
+```
+
+
+
+#### 数值操作:
+
+```html
+{# 四舍五入取整，返回13.0 #}
+<p>{{ 12.8888 | round }}</p>
+ 
+{# 向下截取到小数点后2位，返回12.88 #}
+<p>{{ 12.8888 | round(2, 'floor') }}</p>
+ 
+{# 绝对值，返回12 #}
+<p>{{ -12 | abs }}</p>
+```
+
+
+
+#### 列表操作:
+
+```html
+{# 取第一个元素 #}
+<p>{{ [1,2,3,4,5] | first }}</p>
+ 
+{# 取最后一个元素 #}
+<p>{{ [1,2,3,4,5] | last }}</p>
+ 
+{# 返回列表长度，可以写为count #}
+<p>{{ [1,2,3,4,5] | length }}</p>
+ 
+{# 列表求和 #}
+<p>{{ [1,2,3,4,5] | sum }}</p>
+ 
+{# 列表排序，默认为升序 #}
+<p>{{ [3,2,1,5,4] | sort }}</p>
+ 
+{# 合并为字符串，返回"1 | 2 | 3 | 4 | 5" #}
+<p>{{ [1,2,3,4,5] | join(' | ') }}</p>
+ 
+{# 列表中所有元素都全大写。这里可以用upper,lower，但capitalize无效 #}
+<p>{{ ['tom','bob','ada'] | upper }}</p>
+```
+
+
+
+#### 字典列表操作:
+
+```html
+{% set users=[{'name':'Tom','gender':'M','age':20},
+              {'name':'John','gender':'M','age':18},
+              {'name':'Mary','gender':'F','age':24},
+              {'name':'Bob','gender':'M','age':31},
+              {'name':'Lisa','gender':'F','age':19}]
+%}
+ 
+ 
+{# 按指定字段排序，这里设reverse为true使其按降序排 #}
+<ul>
+{% for user in users | sort(attribute='age', reverse=true) %}
+     <li>{{ user.name }}, {{ user.age }}</li>
+{% endfor %}
+</ul>
+ 
+{# 列表分组，每组是一个子列表，组名就是分组项的值 #}
+<ul>
+{% for group in users|groupby('gender') %}
+    <li>{{ group.grouper }}<ul>
+    {% for user in group.list %}
+        <li>{{ user.name }}</li>
+    {% endfor %}</ul></li>
+{% endfor %}
+</ul>
+ 
+{# 取字典中的某一项组成列表，再将其连接起来 #}
+<p>{{ users | map(attribute='name') | join(', ') }}</p>
+```
+
+### Flask内置过滤器
+
+Flask提供了一个内置过滤器”tojson”，它的作用是将变量输出为JSON字符串。这个在配合Javascript使用时非常有用。我们延用上节字典列表操作中定义的”users”变量
+
+```html
+<script type="text/javascript">
+var users = {{ users | tojson | safe }};
+console.log(users[0].name);
+</script>
+```
+
+
+
+注意，这里要避免HTML自动转义，所以加上safe过滤器。
+
+### 语句块过滤
+
+Jinja2还可以对整块的语句使用过滤器。
+
+```html
+{% filter upper %}
+    This is a Flask Jinja2 introduction.
+{% endfilter %}
+```
+
+
+
+不过上述这种场景不经常用到。
+
+### 自定义过滤器
+
+内置的过滤器不满足需求怎么办？自己写呗。过滤器说白了就是一个函数嘛，我们马上就来写一个。回到Flask应用代码中：
+
+```python
+def double_step_filter(l):
+    return l[::2]
+```
+
+
+
+我们定义了一个”double_step_filter”函数，返回输入列表的偶数位元素（第0位，第2位,..）。怎么把它加到模板中当过滤器用呢？Flask应用对象提供了”add_template_filter”方法来帮我们实现。我们加入下面的代码：
+
+```python
+app.add_template_filter(double_step_filter, 'double_step')
+```
+
+
+
+函数的第一个参数是过滤器函数，第二个参数是过滤器名称。然后，我们就可以愉快地在模板中使用这个叫”double_step”的过滤器了：
+
+```html
+{# 返回[1,3,5] #}
+<p>{{ [1,2,3,4,5] | double_step }}</p>
+```
+
+
+
+Flask还提供了添加过滤器的装饰器”template_filter”，使用起来更简单。下面的代码就添加了一个取子列表的过滤器。装饰器的参数定义了该过滤器的名称”sub”。
+
+```python
+@app.template_filter('sub')
+def sub(l, start, end):
+    return l[start:end]
+```
+
+
+
+我们在模板中可以这样使用它：
+
+```html
+{# 返回[2,3,4] #}
+<p>{{ [1,2,3,4,5] | sub(1,4) }}</p>
+```
+
+
+
+Flask添加过滤器的方法实际上是封装了对Jinja2环境变量的操作。上述添加”sub”过滤器的方法，等同于下面的代码。
+
+```python
+app.jinja_env.filters['sub'] = sub
+```
+
+
+
+我们在Flask应用中，不建议直接访问Jinja2的环境变量。如果离开Flask环境直接使用Jinja2的话，就可以通过”jinja2.Environment”来获取环境变量，并添加过滤器。
