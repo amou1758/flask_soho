@@ -244,4 +244,44 @@ if __name__ == "__main__":
 
 
 
+### 第十一章: 控制代码块 —> [传送门](https://www.bilibili.com/video/av19817183/?p=11):
+
+- 用 {% %} 定义的控制代码块, 可以实现一些语言层次的功能, 比如循环或者 条件语句
+
+**条件代码块**
+
+```html
+{% if user %}
+	{{ user }}
+{% else %}
+	...
+{% endif %}
+```
+
+**循环代码块**
+
+```html
+{% for item in items %}
+	{{ item }}
+{% endfor %}
+```
+
+
+
+**示例:**
+
+```html
+{# for 循环的基本使用 #}
+{# my_list = [1, 3, 5, 7, 9] #}
+{% for num in my_list %}
+    {# if 条件语句的基本使用 #}
+    {% if num > 3 %}
+        {{ num }}<br>
+    {% endif %}
+{% endfor %}
+
+
+```
+
+
 

@@ -21,5 +21,14 @@
 {{ my_dict['url'] }}<br>
 {{ my_dict.get('url') }}<br>
 
+{# for 循环的基本使用 #}
+{% for num in my_list %}
+    {# if 条件语句的基本使用 #}
+    {% if num > 3 %}
+        {{ num }}<br>
+    {% endif %}
+{% endfor %}
+
+
 </body>
 </html>
