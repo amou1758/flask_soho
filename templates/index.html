@@ -5,35 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-这是模版 <br>
-这是首页 <br>
-{# 下面是代码块的使用 #}
-<!--下面是代码块的使用-->
-{{url_str}}<br>
-{# 下面是列表的传入和使用 #}
-{{my_list}}<br>
-{{my_list.2}}<br>
-{{my_list[2]}}<br>
 
-{# 下面是字典的传入和使用 #}
-{{ my_dict }}<br>
-{{ my_dict.name }}<br>
-{{ my_dict['url'] }}<br>
-{{ my_dict.get('url') }}<br>
+<form method="post">
+    <label>用户名:</label><input type="text" name="username"><br>
+    <label>密码:</label><input type="password" name="password"><br>
+    <label>确认密码:</label><input type="password" name="password2"><br>
+    <input type="submit" value="提交"><br>
+    <!--{% for message in get_flashed_messages() %}-->
+        <!--{{ message }}-->
+    <!--{% endfor %}-->
 
-{# for 循环的基本使用 #}
-{% for num in my_list %}
-    {# if 条件语句的基本使用 #}
-    {% if num > 3 %}
-        {{ num }}<br>
-    {% endif %}
-{% endfor %}
-
-{# 过滤器的基本使用 #}
-{# 字符串变大写 #}
-{{ url_str | upper}} <br>
-{# 字符串反转 #}
-{{ url_str | reverse}}
-
+</form>
 </body>
 </html>

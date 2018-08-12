@@ -535,3 +535,101 @@ app.jinja_env.filters['sub'] = sub
 
 
 我们在Flask应用中，不建议直接访问Jinja2的环境变量。如果离开Flask环境直接使用Jinja2的话，就可以通过”jinja2.Environment”来获取环境变量，并添加过滤器。
+
+
+
+### 第十三章: Web表单 —> [传送门](https://www.bilibili.com/video/av19817183/?p=13)
+
+**web 表单是 web 应用程序的基本功能**
+
+- 它是HTML页面中负责数据采集的邮件
+- 表单由三个部分组成:
+  - 表单标签
+  - 表单域
+  - 变淡按钮
+- 表单允许用户输入数据, 负责 HTML 页面数据采集, 通过表单将用户输入的数据提交给服务器
+
+在 Flask 中, 为了处理 web 表单, 我们一般使用 Flask- WTF 扩展.
+
+它封装了 WTForms, 并且它有验证表单数据的功能
+
+
+
+#### WTForms 支持的 HTML 标准字段
+
+| 字段                | 说明                                  |
+| ------------------- | ------------------------------------- |
+| StringField         | 文本字段                              |
+| TextAreaField       | 多行文本字段                          |
+| PasswordField       | 密码文本字段                          |
+| HiddenField         | 隐藏文本字段                          |
+| DateField           | 文本字段，值为 datetime.date 格式     |
+| DateTimeField       | 文本字段，值为 datetime.datetime 格式 |
+| IntegerField        | 文本字段，值为整数                    |
+| DecimalField        | 文本字段，值为 decimal.Decimal        |
+| FloatField          | 文本字段，值为浮点数                  |
+| BooleanField        | 复选框，值为 True 和 False            |
+| RadioField          | 一组单选框                            |
+| SelectField         | 下拉列表                              |
+| SelectMultipleField | 下拉列表，可选择多个值                |
+| FileField           | 文件上传字段                          |
+| SubmitField         | 表单提交按钮                          |
+| FormField           | 把表单作为字段嵌入另一个表单          |
+| FieldList           | 一组指定类型的字段                    |
+
+
+
+#### 示例
+
+**使用普通方式实现表单**
+
+在 HTML 页面中直接写 form 表单:
+
+```html
+<form action="post">
+    <label>用户名:</label><input type="text" name="username"><br>
+    <label>密码:</label><input type="password" name="password"><br>
+    <label>确认密码:</label><input type="password" name="password2"><br>
+    <input type="submit" value="提交"><br>
+</form>
+```
+
+视图函数中获取表单数据
+
+```python
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+
+'''
+目的: 实现一个简单的登陆逻辑处理
+1. 路由需要有get和post两种请求方式 ---> 需要判断请求方式
+2. 获取请求的参数
+3. 判断参数是否填写 & 密码是否相同
+4. 如果判断都没有问题, 就返回一个success
+'''
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    # request: 请求对象 --> 获取请求方式, 数据
+    # 1. 判断请求方式
+    if request.method == 'POST':
+        # 2. 获取请求参数
+        username = request.form.get('username')
+        password = request.form.get('password')
+        password2 = request.form.get('password2')
+        # 3. 判断参数是否填写 & 密码是否相同
+        if not all([username, password, password2]):
+            print("参数不完整")
+        elif password != password2:
+            print("密码不一致")
+        else:
+            return 'success'
+    return render_template('index.html')
+
+
+if __name__ == "__main__":
+	app.run(debug=True)
+```
+

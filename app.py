@@ -1,33 +1,35 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
 
-@app.route("/", methods=["GET", "POST"])
+'''
+目的: 实现一个简单的登陆逻辑处理
+1. 路由需要有get和post两种请求方式 ---> 需要判断请求方式
+2. 获取请求的参数
+3. 判断参数是否填写 & 密码是否相同
+4. 如果判断都没有问题, 就返回一个success
+'''
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    # 假设需要传入一个网址
-    url_str = 'www.itheima.com'
-
-    my_list = [1, 3, 5, 7, 9]
-    my_dict = {
-        'name': "我是代码搬运工!!!",
-        'url': "www.cnblog.com/username"
-    }
-    # 通常, 模版中使用的变量名和要床底的数据的变量名要保持一致
-    return render_template('index.html', url_str=url_str, my_list=my_list, my_dict=my_dict)
-
-
-# 使用同一个视图函数, 来显示不同用户的订单信息
-# <> 定义路由的参数, <>内需要起个名字
-@app.route("/orders/<int:order_id>")
-def git_order_id(order_id):
-    # 需要在视图函数的 () 内填入参数名, 后面的代码才能使用
-    # 有时, 需要对路由做访问优化, 订单ID应该是int类型
-    # 参数类型, 默认是一个字符串
-    print(type(order_id))
-    return "order_id is {}".format(order_id)
+    # request: 请求对象 --> 获取请求方式, 数据
+    # 1. 判断请求方式
+    if request.method == 'POST':
+        # 2. 获取请求参数
+        username = request.form.get('username')
+        password = request.form.get('password')
+        password2 = request.form.get('password2')
+        # 3. 判断参数是否填写 & 密码是否相同
+        if not all([username, password, password2]):
+            print("参数不完整")
+        elif password != password2:
+            print("密码不一致")
+        else:
+            return 'success'
+    return render_template('index.html')
 
 
 if __name__ == "__main__":
-    app.run()
+	app.run(debug=True)
 
