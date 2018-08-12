@@ -1,11 +1,13 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return "Hello World"
+    # 假设需要传入一个网址
+    url_str = 'www.itheima.com'
+    return render_template('index.html', url_str=url_str)
 
 
 # 使用同一个视图函数, 来显示不同用户的订单信息
@@ -21,3 +23,4 @@ def git_order_id(order_id):
 
 if __name__ == "__main__":
     app.run()
+
