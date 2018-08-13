@@ -31,15 +31,29 @@ class Role(db.Model):
     # 字段类型, 是否为主键
     id = db.Column(db.Integer, primary_key=True)
     # 字段类型及长度, 是否唯一约束
-    name = db.Column(db.String(16))
+    name = db.Column(db.String(16), unique=True)
+
+    # 在一的这方, 写关联
+    # users = db.relationship('User'): 表示和 User 模型发生了关联, 增加了一个 User 属性
+    # backref='role': 表示 role 是 user 的关联属性
+    users = db.relationship('User', backref='role')
+
+    def __repr__(self):
+        return '<Role: {} {}>'.format(self.name, self.id)
 
 
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(16))
+    name = db.Column(db.String(16), unique=True)
+    email = db.Column(db.String(32), unique=True)
+    password = db.Column(db.String(32))
     # 声明为外键, 参数为:  与什么表进行关联
+    # User 希望有一个 Role 属性, 但是这个属性的定义, 需要在另一个模型中定义
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
+
+    def __repr__(self):
+        return '<User: {} {}>'.format(self.name, self.id, self.email, self.password)
 
 
 @app.route("/")
