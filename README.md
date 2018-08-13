@@ -1048,3 +1048,127 @@ if __name__ == "__main__":
 
 ```
 
+
+
+### 第二十章: 数据库的增删改 —> [传送门](https://www.bilibili.com/video/av19817183/?p=20)
+
+
+
+#### 一．　增删改操作
+
+1. **基本概念:**
+
+   - 在 Flask-SQLAlchemy 中, 出入, 修改, 删除操作. 均由数据库回话管理
+     - 回话用 db.session 表示, 在准备把数据库写入数据库前. 先将将数据添加到回话中然后调用 commit() 方法提交回话
+   - 在 Flask-SQLAlchemy 中, 查询操作是通过 query 对象操作数据
+     - 最基本的茶树是返回表中所有数据, 可以通过过滤器进行更精确的数据库查询
+
+   ```python
+   # 增加数据库的 session 中
+   db.session.add(role) 
+   
+   # 增加多个信息到 session中
+   db.session.add_all([user1, user2]) 
+   
+   # 提交数据库的修改(包括 增/删/改)
+   db.session.commit() 
+   
+   # 数据库的回滚操作
+   db.session.rollback() 
+   
+   # 删除数据库(需跟上 commit())
+   db.session.delete(user) 
+   ```
+
+2. 
+
+    **示例:**
+
+   ```python
+   from flask import Flask
+   from flask_sqlalchemy import SQLAlchemy
+   
+   app = Flask(__name__)
+   
+   # 配置数据的地址
+   app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:123456@127.0.0.1/flask_sql_demo"
+   
+   # 动态追踪修改设置, 如未设置只会提示警告, 不建议开启
+   app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+   
+   # 查询时会显示原始 SQL 语句
+   # app.config["SQLALCHEMY_ECHO"] = True
+   
+   # 创建数据库实例
+   db = SQLAlchemy(app)
+   
+   """
+   两张表:
+   角色(管理员 / 普通用户)
+   用户(角色ID)
+   
+   """
+   
+   # 数据的模型需要继承自 --> db.Model
+   class Role(db.Model):
+       # 定义表
+       __tablename__ = "roles"
+       # 定义字段
+       # db.Colum 表示的是一个字段
+       # 字段类型, 是否为主键
+       id = db.Column(db.Integer, primary_key=True)
+       # 字段类型及长度, 是否唯一约束
+       name = db.Column(db.String(16))
+   
+   
+   class User(db.Model):
+       __tablename__ = "users"
+       id = db.Column(db.Integer, primary_key=True)
+       name = db.Column(db.String(16))
+       # 声明为外键, 参数为:  与什么表进行关联
+       role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
+   
+   
+   @app.route("/")
+   def index():
+       return "Hello World"
+   
+   
+   if __name__ == "__main__":
+       # 删除表
+       db.drop_all()
+   
+       # 创建表
+       db.create_all()
+   
+       app.run(debug=True)
+   ```
+
+   
+
+   **会话示例**
+
+   ```python
+   # 导入模块
+   from app import *
+   
+   # 添加数据
+   role = Role(name='admin')
+   db.session.add(role)
+   db.session.commit()
+   
+   user = User(name='amou', role_id=role.id)
+   db.session.add(user)
+   db.session.commit()
+   
+   # 修改数据
+   user.name = 'manong'
+   db.session.commit()
+   
+   # 删除数据
+   db.session.delete(user)
+   db.session.commit()
+   ```
+
+   
+
