@@ -53,7 +53,7 @@ class User(db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
 
     def __repr__(self):
-        return '<User: {} {}>'.format(self.name, self.id, self.email, self.password)
+        return '<User: {} {} {} {} >'.format(self.name, self.id, self.email, self.password)
 
 
 @app.route("/")
@@ -67,5 +67,19 @@ if __name__ == "__main__":
 
     # 创建表
     db.create_all()
+    ro1 = Role(name='admin')
+    db.session.add(ro1)
+    db.session.commit()
+
+    ro2 = Role(name='user')
+    db.session.add(ro2)
+    db.session.commit()
+
+    us1 = User(name='wang', email='wang@163.com', password='123456', role_id=ro1.id)
+    us2 = User(name='li', email='li@163.com', password='123456', role_id=ro2.id)
+    us3 = User(name='zhang', email='zhang@163.com', password='123456', role_id=ro1.id)
+    us4 = User(name='zhao', email='zhao@163.com', password='123456', role_id=ro2.id)
+    db.session.add_all([us1, us2, us3, us4])
+    db.session.commit()
 
     app.run(debug=True)
