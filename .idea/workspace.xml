@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a17b1ff-2970-41f9-9682-55864bf81210" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,23 +16,11 @@
       <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="21" column="12" lean-forward="true" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+            <state relative-caret-position="449">
+              <caret line="43" column="17" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="613">
-                <caret line="894" column="21" selection-start-line="894" selection-start-column="21" selection-end-line="894" selection-end-column="21" />
-              </first_editor>
-              <second_editor />
             </state>
           </provider>
         </entry>
@@ -79,7 +66,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds">
     <option name="x" value="875" />
     <option name="width" value="491" />
     <option name="height" value="738" />
@@ -144,6 +131,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="875" y="0" width="491" height="738" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5034642" side_tool="true" weight="0.56396395" />
@@ -151,7 +139,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32792792" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.4965358" visible="true" weight="0.409009" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4965358" weight="0.39205527" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.23787528" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -297,16 +285,6 @@
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="613">
-            <caret line="894" column="21" selection-start-line="894" selection-start-column="21" selection-end-line="894" selection-end-column="21" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-106">
@@ -314,10 +292,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="406">
+            <caret line="900" column="29" selection-start-line="900" selection-start-column="29" selection-end-line="900" selection-end-column="29" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="21" column="12" lean-forward="true" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+        <state relative-caret-position="449">
+          <caret line="43" column="17" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

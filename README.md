@@ -898,7 +898,7 @@ if __name__ == "__main__":
 
 
 
-### 第十八章: Flask-SQLalchemy 扩展的简介及配置  —> [传送门](https://www.bilibili.com/video/av19817183/?p=18)
+### 第十八章: Flask-SQLalchemy 扩张的简介及配置  —> [传送门](https://www.bilibili.com/video/av19817183/?p=18)
 
 #### Flask-SQLAlchemy 扩展
 
@@ -943,6 +943,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 ```
 
+
+
+### 第十九章: 定义数据模型 —> [传送门](https://www.bilibili.com/video/av19817183/?p=19)
+
+
+
 ### 常用的SQLAlchemy字段类型
 
 | **类型名**   | **python****中类型** | **说明**                                            |
@@ -981,4 +987,64 @@ app.config['SQLALCHEMY_ECHO'] = True
 | order_by      | 指定关系中记录的排序方式                                     |
 | secondary     | 指定多对多中记录的排序方式                                   |
 | secondaryjoin | 在SQLAlchemy中无法自行决定时，指定多对多关系中的二级联结条件 |
+
+#### 示例:
+
+```python
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+
+app = Flask(__name__)
+
+
+
+# 配置数据的地址
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123456@127.0.0.1/3306/flask_sql_dome'
+
+# 动态追踪修改设置, 如未设置只会提示警告, 不建议开启
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# 查询时会显示原始 SQL 语句
+app.config['SQLALCHEMY_ECHO'] = True
+
+
+db = SQLAlchemy(app)
+
+'''
+两张表:
+角色(管理员 / 普通用户)
+用户(角色ID)
+
+'''
+
+# 数据的模型需要继承自 --> db.Model
+class Role(db.Model):
+	# 定义表
+	__table__ = 'roles'
+	# 定义字段
+	# db.Colum 表示的是一个字段
+	# 字段类型, 是否为主键
+	id = db.Column(db.Integer, primary_key=True)
+	# 字段类型及长度, 是否唯一约束
+	name = db.Column(db.String(16), unique=True)
+
+
+class User(db.Model):
+	__table__ = 'users'
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(16), unique=True)
+	# 声明为外键, 参数为:  与什么表进行关联
+	role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+@app.route('/')
+def index():
+	return "Hello World"
+
+
+if __name__ == "__main__":
+	app.run(debug=True)
+
+
+```
 
