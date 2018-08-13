@@ -465,7 +465,7 @@ console.log(users[0].name);
 
 注意，这里要避免HTML自动转义，所以加上safe过滤器。
 
-### 语句块过滤
+#### 语句块过滤
 
 Jinja2还可以对整块的语句使用过滤器。
 
@@ -479,7 +479,7 @@ Jinja2还可以对整块的语句使用过滤器。
 
 不过上述这种场景不经常用到。
 
-### 自定义过滤器
+#### 自定义过滤器
 
 内置的过滤器不满足需求怎么办？自己写呗。过滤器说白了就是一个函数嘛，我们马上就来写一个。回到Flask应用代码中：
 
@@ -895,4 +895,90 @@ def login():
 if __name__ == "__main__":
 	app.run(debug=True)
 ```
+
+
+
+### 第十八章: Flask-SQLalchemy 扩展的简介及配置  —> [传送门](https://www.bilibili.com/video/av19817183/?p=18)
+
+#### Flask-SQLAlchemy 扩展
+
+- SQLAlchemy 实际上是对数据库的抽象. 让开发者不用直接 和 SQL 语句到交道, 而是通过 Python 对象来操作数据库, 在舍弃一些性能开销的同时, 换来的是开发效率的极大提升.
+- SQLAlchemy 是一个关系型数据库框架, 他提供了高层的 ORM 和 底层的原生数据库的操作. flask-sqlalchemy 是一个简化了 SQLAlchemy 操作的 flask 扩展
+
+
+
+#### 安装 Flask-SQLalchemy
+
+```python
+pip install flask-sqlalchemy
+```
+
+如果连接的是 mysql 数据库, 需要安装 mysqldb
+
+```python
+pip install flask-mysqldb
+```
+
+
+
+#### 使用 Flask-SQLAlchemy 管理数据库
+
+在 Flask-SQLAlchemy 中, 数据库使用 URL 指定, 而且程序使用的数据库必须保存到Flask 配置对象的 SQLALCHEMY_DATABASE_URI 键中.
+
+
+
+#### Flask 的数据库设置
+
+```python
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:mysql@127.0.0.1:3306/test'
+```
+
+其他设置:
+
+```python
+# 动态追踪修改设置, 如未设置只会提示警告, 不建议开启
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# 查询时会显示原始 SQL 语句
+app.config['SQLALCHEMY_ECHO'] = True
+```
+
+### 常用的SQLAlchemy字段类型
+
+| **类型名**   | **python****中类型** | **说明**                                            |
+| ------------ | -------------------- | --------------------------------------------------- |
+| Integer      | int                  | 普通整数，一般是32位                                |
+| SmallInteger | int                  | 取值范围小的整数，一般是16位                        |
+| BigInteger   | int或long            | 不限制精度的整数                                    |
+| Float        | float                | 浮点数                                              |
+| Numeric      | decimal.Decimal      | 普通整数，一般是32位                                |
+| String       | str                  | 变长字符串                                          |
+| Text         | str                  | 变长字符串，对较长或不限长度的字符串做了优化        |
+| Unicode      | unicode              | 变长Unicode字符串                                   |
+| UnicodeText  | unicode              | 变长Unicode字符串，对较长或不限长度的字符串做了优化 |
+| Boolean      | bool                 | 布尔值                                              |
+| Date         | datetime.date        | 时间                                                |
+| Time         | datetime.datetime    | 日期和时间                                          |
+| LargeBinary  | str                  | 二进制文件                                          |
+
+### 常用的SQLAlchemy列选项
+
+| **选项名**  | **说明**                                          |
+| ----------- | ------------------------------------------------- |
+| primary_key | 如果为True，代表表的主键                          |
+| unique      | 如果为True，代表这列不允许出现重复的值            |
+| index       | 如果为True，为这列创建索引，提高查询效率          |
+| nullable    | 如果为True，允许有空值，如果为False，不允许有空值 |
+| default     | 为这列定义默认值                                  |
+
+### **常用的SQLAlchemy**关系选项
+
+| **选项名**    | **说明**                                                     |
+| ------------- | ------------------------------------------------------------ |
+| backref       | 在关系的另一模型中添加反向引用                               |
+| primaryjoin   | 明确指定两个模型之间使用的联结条件                           |
+| uselist       | 如果为False，不使用列表，而使用标量值                        |
+| order_by      | 指定关系中记录的排序方式                                     |
+| secondary     | 指定多对多中记录的排序方式                                   |
+| secondaryjoin | 在SQLAlchemy中无法自行决定时，指定多对多关系中的二级联结条件 |
 
