@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, request
+from flask import Flask, render_template, flash, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField
@@ -72,6 +72,8 @@ class Book(db.Model):
     c. secret_key / 编码 / csrf_token
 6. 实现相关的增删逻辑
     a. 添加内容
+    b. 删除书籍 --> 网页中删除 --> 点击需要发送书籍的ID给删除书籍的路由 --> 路由需要接受参数
+    
 
 """
 
@@ -80,6 +82,27 @@ class AuthorForm(FlaskForm):
     author = StringField("作者:", validators=[DataRequired()])
     book = StringField("书籍:", validators=[DataRequired()])
     submit = SubmitField("提交")
+
+
+@app.route('/delete_book/<book_id>')
+def delete_book(book_id):
+    # 1. 查询数据库, 是否该id的书, 如果有就删除, 否则提示错误
+    book = Book.query.get(book_id)
+    if book:
+        try:
+            db.session.delete(book)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("删除书籍出错")
+            db.session.rollback()
+    else:
+        flash("书籍没找到")
+    print(book_id)
+    # 如何返回当前网址 --> 重定向
+    # redirect: 重定向, 需要传入网址/路由地址
+    # url_for(): 需要传入视图函数名, 返回该函数的路由地址
+    return redirect(url_for('index'))
 
 
 @app.route("/", methods=["GET", "POST"])
