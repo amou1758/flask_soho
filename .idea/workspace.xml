@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6a17b1ff-2970-41f9-9682-55864bf81210" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/books.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/books.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,16 +13,16 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/flask_soho$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1534266999825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/flask_soho$app.coverage" NAME="app Coverage Results" MODIFIED="1534180780274" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flask_soho$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1534269949897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flask_soho$app.coverage" NAME="app Coverage Results" MODIFIED="1534270354631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
+            <state relative-caret-position="265">
+              <caret line="60" column="26" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -32,8 +33,8 @@
       <file leaf-file-name="books.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/books.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+            <state relative-caret-position="60">
+              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -57,8 +58,8 @@
         <option value="$PROJECT_DIR$/templates/index.html.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/My_app.py" />
-        <option value="$PROJECT_DIR$/templates/books.html" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/templates/books.html" />
         <option value="$PROJECT_DIR$/app.py" />
       </list>
     </option>
@@ -124,7 +125,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.app (1)">
+  <component name="RunManager" selected="Python.app">
     <configuration name="app (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="flask_soho" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -169,8 +170,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.app (1)" />
         <item itemvalue="Python.app" />
+        <item itemvalue="Python.app (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -205,9 +206,9 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" auto_hide="true" x="475" y="151" width="415" height="435" id="Version Control" order="7" type="FLOATING" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.62702703" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49884528" visible="true" weight="0.34954956" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49884528" visible="true" weight="0.034234233" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49191687" weight="0.16756757" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.57505774" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.3787529" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -425,13 +426,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Flask_ENV/Lib/site-packages/sqlalchemy/sql/schema.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="3685" selection-start-line="3685" selection-end-line="3685" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Flask_ENV/Lib/site-packages/sqlalchemy/orm/session.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
@@ -460,27 +454,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/books.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="319">
-            <caret line="1543" lean-forward="true" selection-start-line="1543" selection-end-line="1543" />
+          <first_editor relative-caret-position="248">
+            <caret line="1639" lean-forward="true" selection-start-line="1639" selection-end-line="1639" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Flask_ENV/Lib/site-packages/sqlalchemy/sql/schema.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="698">
+          <caret line="1288" selection-start-line="1288" selection-end-line="1288" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/books.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="55" column="17" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
+        <state relative-caret-position="265">
+          <caret line="60" column="26" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>

@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # 配置数据: 数据库地址
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:mysql@127.0.0.1/flask_books'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:123456@127.0.0.1/flask_books'
 
 # 关闭自动跟踪修改
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -39,11 +39,10 @@ class Book(db.Model):
     name = db.Column(db.String(24), unique=True)
 
     # 创建外键
-    author_id = db.Column(db.Integer, Foreignkey='authors.id')
-
+    author_id = db.Column(db.Integer, db.ForeignKey('authors.id'))
 
     def __repr__(self):
-        return '<Book: {}>'.format(self.name)
+        return '<Book: {} {}>'.format(self.name, self.author_id)
 
 """
 1. 配置数据库
@@ -58,6 +57,8 @@ class Book(db.Model):
     f. db.ForeignKey 创建外键
 3. 添加数据
 4. 使用模版显示数据库查询的数据
+    a. 查询所有的额作者的信息, 让信息传递给模版
+    b. 模版中按照格式, for循环作者和书籍即可, (作者获取书籍, 用的是关系引用)
 5. WTF表单来显示表单
 6. 实现相关的增删逻辑
 
@@ -65,8 +66,38 @@ class Book(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('books.html')
+    # 查询作者的信息  传递给模版
+    authors = Author.query.all()
+
+
+    return render_template('books.html', authors=authors)
 
 
 if __name__ == "__main__":
+    # 先清空数据库
+    db.drop_all()
+    # 创建需要的表结构
+    db.create_all()
+
+    # 生成数据
+    au1 = Author(name='老张')
+    au2 = Author(name='老王')
+    au3 = Author(name='老李')
+    au4 = Author(name='老赵')
+    au5 = Author(name='老孙')
+
+    db.session.add_all([au1, au2, au3, au4, au5])
+    db.session.commit()
+
+    bk1 = Book(name='三字经', author_id=au1.id)
+    bk2 = Book(name='百家姓', author_id=au2.id)
+    bk3 = Book(name='唐诗', author_id=au3.id)
+    bk4 = Book(name='宋词', author_id=au4.id)
+    bk5 = Book(name='公众号文章', author_id=au5.id)
+    bk6 = Book(name='微博', author_id=au5.id)
+    bk7 = Book(name='朋友圈', author_id=au3.id)
+    db.session.add_all([bk1, bk2, bk3, bk4, bk5, bk6, bk7])
+    db.session.commit()
+
+
     app.run(debug=True)
