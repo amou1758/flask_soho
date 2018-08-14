@@ -84,6 +84,30 @@ class AuthorForm(FlaskForm):
     submit = SubmitField("提交")
 
 
+@app.route('/delete_author/<author_id>')
+def delete_author(author_id):
+    # 查询该用户是否存在, 先删除书籍, 再删除作者, 如果用户不存在提示错误
+    author = Author.query.get(author_id)
+    if author:
+        try:
+            # 查询之后直接删除
+            Book.query.filter_by(author_id=author.id).delete()
+            # 删除作者
+            db.session.delete(author)
+            db.session.commit()
+            pass
+        except Exception as e:
+            print(e)
+            flash("删除作者失败")
+            db.session.rollback()
+    else:
+        flash("作者找不到")
+
+
+
+
+    return redirect(url_for('index'))
+
 @app.route('/delete_book/<book_id>')
 def delete_book(book_id):
     # 1. 查询数据库, 是否该id的书, 如果有就删除, 否则提示错误
