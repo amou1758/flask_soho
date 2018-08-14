@@ -1082,9 +1082,9 @@ if __name__ == "__main__":
 
 2. 
 
-    **示例:**
+   **示例:**
 
-   ```python
+```python
    from flask import Flask
    from flask_sqlalchemy import SQLAlchemy
    
@@ -1142,13 +1142,13 @@ if __name__ == "__main__":
        db.create_all()
    
        app.run(debug=True)
-   ```
+```
 
    
 
    **会话示例**
 
-   ```python
+```python
    # 导入模块
    from app import *
    
@@ -1168,7 +1168,7 @@ if __name__ == "__main__":
    # 删除数据
    db.session.delete(user)
    db.session.commit()
-   ```
+```
 
    
 
@@ -1466,5 +1466,78 @@ Out[7]: <User: zhang 3 zhang@163.com 123456 >
 
         
 
+```
+
+
+
+### 第二十三章: 案例演示和思路分析 —> [传送门](https://www.bilibili.com/video/av19817183/?p=23)
+
+
+
+#### 思路分析:
+
+```
+1. 配置数据库
+2. 添加书和作者的模型
+3. 添加数据
+4. 使用模版显示数据库查询的数据
+5. WTF表单来显示表单
+6. 实现相关的增删逻辑
+```
+
+
+
+### 第二十四章: 关联数据库 —> [传送门](https://www.bilibili.com/video/av19817183/?p=24)
+
+
+
+#### 思路分析:
+
+1. 配置数据库
+   a. 导入 sqlalchemy 扩展
+   b. 创建db对象, 并配置参数
+   c. 终端创建数据
+
+
+
+#### 代码示例:
+
+```python
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+
+# 配置数据: 数据库地址
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:mysql@127.0.0.1/flask_books'
+
+# 关闭自动跟踪修改
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+# 创建数据库对象
+db = SQLAlchemy(app)
+
+
+"""
+1. 配置数据库
+    a. 导入 sqlalchemy 扩展
+    b. 创建db对象, 并配置参数
+    c. 终端创建数据
+2. 添加书和作者的模型
+3. 添加数据
+4. 使用模版显示数据库查询的数据
+5. WTF表单来显示表单
+6. 实现相关的增删逻辑
+
+"""
+
+@app.route('/')
+def index():
+    return render_template('books.html')
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
 ```
 
