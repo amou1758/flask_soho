@@ -7,6 +7,16 @@
 <body>
 
 <hr>
+<form method="post">
+    {{ form.csrf_token }}
+    {{ form.author.label }}{{ form.author }}<br>
+    {{ form.book.label }}{{ form.book }}<br>
+    {{ form.submit }}<br>
+    {# 显示消息闪现的内容 #}
+    {% for flash_message in get_flashed_messages() %}
+        {{ flash_message }}
+    {% endfor %}
+</form>
 <ur>
     {# 先遍历作者, 然后在作者内遍历书籍 #}
     {% for author in authors %}

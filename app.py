@@ -1,5 +1,8 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from wtforms import SubmitField, StringField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 
@@ -8,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:123456@127.
 
 # 关闭自动跟踪修改
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.secret_key = 'amou1758'
 
 # 创建数据库对象
 db = SQLAlchemy(app)
@@ -60,17 +63,28 @@ class Book(db.Model):
     a. 查询所有的额作者的信息, 让信息传递给模版
     b. 模版中按照格式, for循环作者和书籍即可, (作者获取书籍, 用的是关系引用)
 5. WTF表单来显示表单
+    a. 自定义表单类
+    b. 模版中显示
+    c. secret_key / 编码 / csrf_token
 6. 实现相关的增删逻辑
 
 """
 
+# 自定义表单类
+class AuthorForm(FlaskForm):
+    author = StringField('作者:', validators=[DataRequired()])
+    book = StringField('书籍:', validators=[DataRequired()])
+    submit = SubmitField('提交')
+
+
 @app.route('/')
 def index():
+    # 创建一个自定义的表单类
+    author_form = AuthorForm()
+
     # 查询作者的信息  传递给模版
     authors = Author.query.all()
-
-
-    return render_template('books.html', authors=authors)
+    return render_template('books.html', authors=authors, form=author_form)
 
 
 if __name__ == "__main__":
